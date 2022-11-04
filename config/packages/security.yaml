@@ -25,7 +25,10 @@ security:
     api:
       pattern: ^/api
       stateless: true
+      entry_point: jwt
       jwt: ~
+      refresh_jwt:
+        check_path: /api/token/refresh
 
     main:
       lazy: true
@@ -40,8 +43,8 @@ security:
   # Easy way to control access for large sections of your site
   # Note: Only the *first* access control that matches will be used
   access_control:
+    - { path: ^/api/users, roles: ROLE_USER }
     # - { path: ^/admin, roles: ROLE_ADMIN }
-    # - { path: ^/profile, roles: ROLE_USER }
 
 when@test:
   security:
